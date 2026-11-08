@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Campus - Room Availability Checker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Room Availability Checker</h1>
+    <p class="info" id="current-time"></p>
+
+    <section aria-labelledby="req-title">
+      <h2 id="req-title">1. Requirements</h2>
+
+      <label for="attendees">Attendees (minimum capacity)</label>
+      <input id="attendees" type="text" inputmode="numeric" placeholder="e.g. 20">
+      <p class="field-error" id="filter-error" role="alert" hidden></p>
+
+      <fieldset>
+        <legend>Required equipment (room must have all selected)</legend>
+        <div id="equipment" class="checks"></div>
+      </fieldset>
+    </section>
+
+    <section aria-labelledby="room-title">
+      <h2 id="room-title">2. Room</h2>
+      <p class="empty" id="empty-state" role="status" hidden></p>
+      <label for="room">Matching rooms</label>
+      <select id="room"></select>
+      <p class="info" id="room-info"></p>
+    </section>
+
+    <section aria-labelledby="time-title">
+      <h2 id="time-title">3. Time</h2>
+      <label for="start">Start time (HH:MM)</label>
+      <input id="start" type="text" placeholder="10:00">
+
+      <label for="end">End time (HH:MM)</label>
+      <input id="end" type="text" placeholder="11:00">
+
+      <button id="check" type="button">Check availability</button>
+      <div id="result" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

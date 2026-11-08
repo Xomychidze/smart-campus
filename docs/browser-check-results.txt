@@ -1,0 +1,8 @@
+rooms: Alpha Lab (30 seats) ; Beta Studio (12 seats) ; Gamma Hall (80 seats) ; Delta Room (8 seats, blocked) ; Epsilon Lab (20 seats)
+09:30-10:30 R101 -> busy | Room is busy: overlaps with booking 09:00-10:00.
+10:00-11:00 R101 -> ok | Room Alpha Lab is available from 10:00 to 11:00.
+10:00-12:01 R101 -> error | Booking cannot be longer than 120 minutes.
+switch to blocked R202 -> error | Booking cannot be longer than 120 minutes.
+attendees=500 empty-state: hidden=false check disabled=true
+horizontal overflow at 375px: false
+console/page errors: none

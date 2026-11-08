@@ -1,0 +1,33 @@
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body { font-family: Arial, sans-serif; margin: 0; padding: 16px; background: #f4f6f8; color: #1d2733; }
+.card { max-width: 520px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+h1 { font-size: 20px; margin: 0 0 4px; }
+h2 { font-size: 16px; margin: 20px 0 4px; color: #1a5fb4; }
+
+label { display: block; margin: 12px 0 4px; font-weight: bold; }
+input[type="text"], select, button { width: 100%; padding: 10px; font-size: 16px; }
+button { margin-top: 16px; background: #1a5fb4; color: #fff; border: 0; border-radius: 4px; cursor: pointer; }
+button:disabled { background: #9aa7b5; cursor: not-allowed; }
+select:disabled { background: #eceff3; }
+
+fieldset { margin: 12px 0 0; border: 1px solid #ccd3db; border-radius: 4px; }
+legend { font-weight: bold; padding: 0 4px; }
+.checks { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+label.check { display: flex; align-items: center; gap: 6px; margin: 4px 0; font-weight: normal; }
+label.check input { width: 18px; height: 18px; }
+
+.info { font-size: 14px; color: #555; margin: 6px 0 0; }
+.field-error { color: #8a1c1c; font-size: 14px; margin: 6px 0 0; }
+.empty { background: #eef2f7; border: 1px dashed #8896a8; padding: 12px; border-radius: 4px; margin: 8px 0 0; }
+
+#result { margin-top: 16px; padding: 12px; border-radius: 4px; display: none; }
+#result.ok { display: block; background: #e3f6e8; color: #145a2a; }
+#result.error { display: block; background: #fdeaea; color: #8a1c1c; }
+#result.busy { display: block; background: #fff3cd; color: #7a5a00; }
+
+@media (max-width: 480px) {
+  body { padding: 8px; }
+  .card { padding: 12px; }
+}
