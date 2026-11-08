@@ -58,7 +58,12 @@ Order rule: refactor one step at a time, run tests and review the diff after eac
 
 ## 6. AI suggestion that was modified/rejected
 
-> **To be confirmed by the student (must reflect what really happened).**
-> Candidate from this session: the assistant's first plan said a UI-level integration test could use `jsdom`.
-> Decision: modified - no dependency is added; the integration test runs at the orchestrator level (`runCheck(state)`) with Node's built-in `node --test`, plus a manual UI checklist.
-> Reason: assignment requires "setup, run and test commands"; zero dependencies means `node --test` works on any machine without `npm install`.
+**Suggestion (AI):** For testing the UI, the assistant proposed a small fake DOM as the main approach and mentioned `jsdom` as optional alternatives for more realistic browser tests.
+
+**Decision: partly accepted, partly rejected.**
+- Accepted: testing the rules as pure functions and testing the UI flow with a small fake DOM (`tests/helpers/fake-dom.js`) through `initApp(fakeDocument)`, plus a manual browser smoke check.
+- Rejected: `jsdom`. The project has no dependencies in `package.json`.
+
+**Reason:** The assignment requires clear setup, run and test commands. With zero dependencies, `npm test` (`node --test`) works on any machine with Node 20+ and does not need `npm install`. The "no heavy frameworks" constraint also points to keeping test tools minimal.
+
+**Trade-off I accepted:** A fake DOM can differ from a real browser. To reduce this risk, the fake DOM is very small, and I use a manual UI checklist (change room, change filter, empty state, narrow screen at about 375 px) before submitting.
