@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Assignment 04 report</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>html{font-size:100%}body{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;margin:0;padding:0;max-width:none !important;color:#111}
+  h1{font-size:18px;border-bottom:2px solid #1a5fb4;padding-bottom:3px;margin-top:26px;page-break-before:auto}
+  h1,h2,h3{break-after:avoid}table,pre,td img{break-inside:avoid}h2{font-size:14px;color:#1a5fb4;margin-top:16px} h3{font-size:12px}
+  table{border-collapse:collapse;margin:8px 0;width:100%;table-layout:auto;word-break:break-word} th,td{border:1px solid #aab;padding:3px 6px;vertical-align:top;text-align:left}
+  th{background:#eef2f7} code{background:#f2f4f7;padding:0 2px;font-size:10px}
+  pre{background:#f2f4f7;padding:6px;font-size:9.5px;overflow:hidden;white-space:pre-wrap}
+  img{max-width:100%;max-height:420px;display:block;margin:6px auto} td img{max-width:100%;max-height:520px} blockquote{border-left:3px solid #aab;margin-left:0;padding-left:8px;color:#333}</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Assignment 04 report</h1>
+</header>
+<h1
+id="smart-campus-room-availability-checker---assignment-04-report">Smart
+Campus Room Availability Checker - Assignment #04 report</h1>
+<p><strong>AI assistant used:</strong> Claude (Anthropic), model
+claude-sonnet-5-5, session date 2026-11-08.</p>
+<p>Repository: <code>v1-initial/</code> (baseline commit
+<code>b82d77c</code>, tag <code>v1-baseline</code>),
+<code>v2-final/</code> (final). Run commands are in
+<code>README.md</code>.</p>
+<h1 id="task-01---codebase-analysis-v1-baseline">Task #01 - Codebase
+analysis (v1 baseline)</h1>
+<p>Baseline commit: <code>b82d77c</code> (tag <code>v1-baseline</code>).
+All line numbers refer to that commit.</p>
+<h2 id="1-repository-map-context-given-to-the-ai-assistant">1.
+Repository map (context given to the AI assistant)</h2>
+<pre><code>v1-initial/
+├── index.html   (38 lines)  page markup + inline CSS; loads script.js
+└── script.js    (91 lines)  everything else
+    ├── room (L5-14)                 data: one room R101, 3 frozen bookings
+    ├── NOW (L16)                    fixed &quot;current time&quot; constant
+    ├── toMinutes(t) (L18)           &quot;HH:MM&quot; -&gt; minutes
+    ├── checkAvailability() (L23)    DOM read + AC1 + AC2 + AC3 + AC4 + DOM write
+    └── click handler (L71)          DOM read + partial AC1/AC2 re-check, then calls checkAvailability()</code></pre>
+<h2 id="2-acceptance-criteria-and-constraints-given-to-the-ai">2.
+Acceptance criteria and constraints given to the AI</h2>
+<ul>
+<li>AC1 valid time (HH:MM, start &lt; end)</li>
+<li>AC2 maximum 120 minutes</li>
+<li>AC3 blocked room cannot be booked</li>
+<li>AC4 overlap = busy, touching boundaries = free</li>
+<li>AC5 booking data immutable</li>
+<li>AC6 clear, responsive feedback</li>
+<li>Constraints: no login, payments, live APIs or database; fictional
+data only; no full rewrite - small steps.</li>
+</ul>
+<h2 id="3-baseline-evidence">3. Baseline evidence</h2>
+<p><code>docs/baseline-v1-results.txt</code>: 9/9 manual-equivalent
+checks pass (AC1, AC2 at 120/121, AC4 overlap and touching). Automated
+test suite: none (0 tests). Size: 38 + 91 = 129 lines.</p>
+<h2 id="4-maintainability-risks-with-filefunction-references">4.
+Maintainability risks (with file/function references)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Risk</th>
+<th>Evidence</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R1</td>
+<td><strong>Duplicated validation</strong></td>
+<td><code>script.js</code> click handler L77-89 re-implements the
+empty-input check and the 120-minute check that
+<code>checkAvailability()</code> already does (L29-L47). The literal
+<code>120</code> and the message "Booking cannot be longer than 120
+minutes." appear twice (L43/L45 and L84/L86).</td>
+<td>Changing the limit in one place and forgetting the other creates
+inconsistent behaviour.</td>
+</tr>
+<tr class="even">
+<td>R2</td>
+<td><strong>Business rules mixed with DOM</strong></td>
+<td><code>checkAvailability()</code> reads
+<code>document.getElementById</code> (L24-L26) and writes
+<code>box.className</code>/<code>box.textContent</code> in 8 places
+(L30-L86). Rules cannot be called without a browser.</td>
+<td>Rules cannot be unit-tested in Node; every test needs a DOM.</td>
+</tr>
+<tr class="odd">
+<td>R3</td>
+<td><strong>Hard-wired single-room data</strong></td>
+<td><code>checkAvailability()</code> reads the global <code>room</code>
+(L5) directly (L48, L55-L60). It takes no room parameter.</td>
+<td>Adding more rooms (new feature) would force edits inside the rule
+code and risks using another room's bookings.</td>
+</tr>
+<tr class="even">
+<td>R4</td>
+<td><strong>Duplicated rendering logic</strong></td>
+<td>8 separate <code>box.className = ...; box.textContent = ...</code>
+pairs (L30, 37, 44, 51, 61, 67, 78, 85).</td>
+<td>Any change to result styling or ARIA must be repeated 8 times.</td>
+</tr>
+<tr class="odd">
+<td>R5</td>
+<td><strong>Dead / unused config</strong></td>
+<td><code>NOW</code> (L16) is declared but never read; the fixed time
+exists only in the HTML text (<code>index.html</code> L28).</td>
+<td>Misleading constant; two sources of truth for "current time".</td>
+</tr>
+<tr class="even">
+<td>R6</td>
+<td><strong>Time regex duplicated inline</strong></td>
+<td>The same regex literal appears twice in one condition (L29).</td>
+<td>Minor, but easy to desynchronize.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-prioritized-improvement-plan-before-editing-code">5.
+Prioritized improvement plan (before editing code)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Priority</th>
+<th>Step</th>
+<th>Fixes</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P1</td>
+<td>Add automated tests around the <strong>current</strong> behaviour
+(AC1-AC5)</td>
+<td>-</td>
+<td>Safety net before any refactoring</td>
+</tr>
+<tr class="even">
+<td>P1</td>
+<td>Extract constants to <code>config.js</code> (MAX_DURATION=120,
+NOW)</td>
+<td>R1, R5</td>
+<td>Smallest change, removes magic numbers</td>
+</tr>
+<tr class="odd">
+<td>P1</td>
+<td>Extract time validation to <code>rules/validation.js</code>, single
+source for both checks</td>
+<td>R1, R6</td>
+<td>Removes the duplicated validation</td>
+</tr>
+<tr class="even">
+<td>P1</td>
+<td>Extract overlap/blocked logic to <code>rules/availability.js</code>,
+taking <code>room</code> as an argument</td>
+<td>R2, R3</td>
+<td>Needed before multiple rooms</td>
+</tr>
+<tr class="odd">
+<td>P2</td>
+<td>Move room data to <code>data/rooms.js</code> (4+ rooms, each with
+own bookings)</td>
+<td>R3</td>
+<td>Prepares the new feature</td>
+</tr>
+<tr class="even">
+<td>P2</td>
+<td>One <code>render.js</code> function for results</td>
+<td>R4</td>
+<td>Single place for UI feedback</td>
+</tr>
+<tr class="odd">
+<td>P2</td>
+<td>Add <code>rules/filters.js</code> (capacity, equipment), room
+selector, empty state</td>
+<td>New F1-F5</td>
+<td>The new feature, built on clean modules</td>
+</tr>
+<tr class="even">
+<td>P3</td>
+<td>Tests for F1-F5, integration test, quality comparison table</td>
+<td>-</td>
+<td>Evidence for the report</td>
+</tr>
+</tbody>
+</table>
+<p>Order rule: refactor one step at a time, run tests and review the
+diff after each, commit after each.</p>
+<h2 id="6-ai-suggestion-that-was-modifiedrejected">6. AI suggestion that
+was modified/rejected</h2>
+<blockquote>
+<p><strong>To be confirmed by the student (must reflect what really
+happened).</strong> Candidate from this session: the assistant's first
+plan said a UI-level integration test could use <code>jsdom</code>.
+Decision: modified - no dependency is added; the integration test runs
+at the orchestrator level (<code>runCheck(state)</code>) with Node's
+built-in <code>node --test</code>, plus a manual UI checklist. Reason:
+assignment requires "setup, run and test commands"; zero dependencies
+means <code>node --test</code> works on any machine without
+<code>npm install</code>.</p>
+</blockquote>
+<h1 id="tasks-02-03-05---design-refactoring-and-quality-evidence">Tasks
+#02, #03, #05 - Design, refactoring and quality evidence</h1>
+<h2 id="1-architecture-before--after">1. Architecture before /
+after</h2>
+<p><strong>Before (v1)</strong> - one file mixes UI, validation, rules
+and data:</p>
+<p><img src="diagrams/before.png" alt="Before: v1 monolith" /></p>
+<p><strong>After (v2)</strong> - rules know nothing about the DOM:</p>
+<p><img src="diagrams/after.png" alt="After: v2 modules" /></p>
+<h2 id="2-design-decisions">2. Design decisions</h2>
+<ol type="1">
+<li><strong>Rules are pure functions without DOM access</strong>
+(<code>rules/*</code>). Reason: they can be tested from Node with
+<code>node --test</code> and no browser. Trade-off: one more layer
+(<code>ui/app.js</code>) to connect input to rules.</li>
+<li><strong><code>config.js</code> is the single source of the
+120-minute limit.</strong> Reason: in v1 the number and its message were
+duplicated (L43/L84). In v2 the error text is built from the constant,
+so limit and message cannot diverge. Evidence:
+<code>grep -rn 120 src</code> finds it only in
+<code>config.js</code>.</li>
+<li><strong><code>checkRoomAvailability(room, ...)</code> receives the
+room as an argument.</strong> Reason: a check can only see the bookings
+of the room it was given, which prevents using another room's data.
+Tested in <code>rooms.test.js</code> ("each room uses its own
+bookings").</li>
+<li><strong>Data is deep-frozen</strong> (<code>deepFreeze</code> in
+<code>data/rooms.js</code>) for AC5. Reason: attempts to mutate bookings
+throw <code>TypeError</code> in ES modules (strict mode), which tests
+assert.</li>
+<li><strong><code>doc</code> is injected into
+<code>initApp</code>.</strong> Reason: the UI controller is testable
+with a 50-line fake DOM and no extra dependency such as jsdom.</li>
+</ol>
+<h2 id="3-quality-comparison-v1-vs-v2">3. Quality comparison (v1 vs
+v2)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>v1</th>
+<th>v2</th>
+<th>How it was obtained</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Automated tests</td>
+<td>0</td>
+<td>41 passed / 41</td>
+<td><code>node --test</code> in <code>v2-final</code>, output in
+<code>docs/test-results.txt</code></td>
+</tr>
+<tr class="even">
+<td>Manual checks</td>
+<td>9/9 pass (AC1, AC2, AC4)</td>
+<td>9/9 equivalent checks covered by tests</td>
+<td><code>docs/baseline-v1-results.txt</code> (harness run on v1)</td>
+</tr>
+<tr class="odd">
+<td>Places where the 120-minute limit is defined</td>
+<td>2 (<code>script.js</code> L43, L84)</td>
+<td>1 (<code>config.js</code>)</td>
+<td><code>grep -n 120</code> in v1, <code>grep -rn 120 src</code> in
+v2</td>
+</tr>
+<tr class="even">
+<td>Duplicated validation blocks</td>
+<td>2 (handler + <code>checkAvailability</code>)</td>
+<td>0 (<code>validateTimeRange</code> only)</td>
+<td>code review of v1 L24-L47 vs L77-L89</td>
+</tr>
+<tr class="odd">
+<td>Result-rendering call sites</td>
+<td>8 (<code>box.className = ...</code>)</td>
+<td>1 (<code>renderResult</code>)</td>
+<td><code>grep -n "box.className" script.js</code> vs
+<code>src/ui/render.js</code></td>
+</tr>
+<tr class="even">
+<td>DOM access inside rule code</td>
+<td>yes (<code>getElementById</code> x6)</td>
+<td>none</td>
+<td><code>grep -rn getElementById src/rules src/data src/config.js</code>
+= 0 matches</td>
+</tr>
+<tr class="odd">
+<td>Files / modules</td>
+<td>2 files (129 lines)</td>
+<td>11 source files + 5 test files</td>
+<td><code>wc -l</code>, <code>ls</code></td>
+</tr>
+<tr class="even">
+<td>Rooms</td>
+<td>1</td>
+<td>5 (1 blocked), each with own bookings</td>
+<td><code>src/data/rooms.js</code></td>
+</tr>
+<tr class="odd">
+<td>Mobile layout</td>
+<td>responsive, 1 breakpoint</td>
+<td>responsive; no horizontal overflow at 375 px</td>
+<td>Playwright run, <code>docs/browser-check-results.txt</code>,
+screenshots in <code>docs/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Line count grew (129 -&gt; 468 incl. HTML/CSS) because v2 adds
+features (rooms, filters, empty state). Size was not a quality goal.</p>
+<h2 id="4-remaining-limitations">4. Remaining limitations</h2>
+<ul>
+<li>No persistence: bookings are fixed fictional data; a successful
+check does not create a booking.</li>
+<li>"Current time" is a fixed label; bookings in the past are not
+handled.</li>
+<li>UI is tested through a fake DOM and one Playwright smoke run, not a
+full end-to-end suite in CI.</li>
+<li>Times are same-day only; no overnight ranges.</li>
+<li>Ambiguity decided by me: a blocked room still appears in the list
+(marked "blocked") but is never reported available.</li>
+</ul>
+<h2 id="5-behaviour-note-found-during-testing">5. Behaviour note found
+during testing</h2>
+<p><code>runCheck</code> validates time first, so a blocked room with an
+invalid range shows the time error, not "blocked". This is covered by a
+test (<code>validation errors come before availability</code>) and was
+kept on purpose.</p>
+<h1 id="task-04---automated-testing-commands-and-actual-results">Task
+#04 - Automated testing: commands and actual results</h1>
+<p>Command: <code>cd v2-final &amp;&amp; node --test</code> (Node 22, no
+dependencies). Raw output: <code>docs/test-results.txt</code>.</p>
+<pre><code># tests 41
+# suites 0
+# pass 41
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 255.162348</code></pre>
+<p>Executed tests:</p>
+<pre><code>ok 1 - AC3: blocked room is reported as blocked, never available
+ok 2 - AC3: blocked room wins even when it has no bookings
+ok 3 - AC4: overlapping interval is busy and names the conflicting booking
+ok 4 - AC4 boundary: request that ends exactly when a booking starts is free (touching)
+ok 5 - AC4 boundary: request that starts exactly when a booking ends is free (touching)
+ok 6 - AC4 boundary: one minute of overlap is busy
+ok 7 - AC4: request fully inside an existing booking is busy
+ok 8 - runCheck: free slot returns ok with room name in message
+ok 9 - runCheck: validation errors come before availability (blocked room + 121 min -&gt; TOO_LONG)
+ok 10 - runCheck: blocked room returns BLOCKED error
+ok 11 - F1 boundary: exact capacity passes, one more attendee fails
+ok 12 - F1: insufficient capacity excludes small rooms
+ok 13 - F2: room must have ALL selected equipment
+ok 14 - F2: missing a single required item excludes the room
+ok 15 - F1 + F2 combined
+ok 16 - no criteria returns the whole catalog
+ok 17 - F3: a blocked room can match filters but is never reported as available
+ok 18 - F4: impossible criteria give an empty list
+ok 19 - parseAttendees accepts empty and whole numbers, rejects the rest
+ok 20 - getRoomById returns null for unknown ids
+ok 21 - integration: initial state lists all rooms and selects the first
+ok 22 - integration: filter -&gt; select room -&gt; check time -&gt; result (free slot)
+ok 23 - integration: busy slot and boundary touching through the UI
+ok 24 - integration: invalid time shows a clear error (AC1/AC2/AC6)
+ok 25 - F4 integration: impossible requirements show the empty state and disable checking
+ok 26 - F5 integration: changing the room re-checks the same time for the NEW room
+ok 27 - F5 integration: blocked room switch shows blocked error, not a stale &#39;available&#39;
+ok 28 - F5 integration: result is cleared when the filter removes the selected room
+ok 29 - integration: invalid attendees value shows a filter error and keeps the old list
+ok 30 - catalog has at least four rooms with all required fields
+ok 31 - catalog contains at least one blocked room
+ok 32 - AC5: booking data is immutable (assignment and push throw)
+ok 33 - AC5: running checks does not change room data
+ok 34 - listEquipment returns sorted unique items from the catalog
+ok 35 - each room uses its own bookings: same slot, different result per room
+ok 36 - toMinutes converts HH:MM to minutes
+ok 37 - AC1: empty input is rejected
+ok 38 - AC1: wrong format is rejected
+ok 39 - AC1: start equal to end or after end is rejected
+ok 40 - AC2 boundary: exactly 120 minutes is accepted
+ok 41 - AC2 boundary: 121 minutes is rejected</code></pre>
+<h1
+id="demonstration-screenshots-420-px-wide-real-browser">Demonstration
+(screenshots, 420 px wide, real browser)</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Successful filter + free slot</th>
+<th>Overlap -&gt; busy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="demo/1-filter-success-available.png" /></td>
+<td><img src="demo/2-overlap-busy.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Room switch re-checks the same time</th>
+<th>Unsuccessful filter -&gt; empty state</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="demo/3-room-switch-rechecked.png" /></td>
+<td><img src="demo/4-filter-empty-state.png" /></td>
+</tr>
+</tbody>
+</table>
+<h1 id="task-06---ai-reflection">Task #06 - AI reflection</h1>
+<p>I used Claude (Claude Sonnet 5.5, Claude Code) on 2026-11-08. I gave
+it the assignment PDF, a repository map of v1, acceptance criteria
+AC1-AC6 and the constraints: no login, payments, APIs or database,
+fictional data only, and small steps instead of a rewrite.</p>
+<p>Useful output: the risk list with line references (the 120-minute
+rule duplicated at script.js L43 and L84, DOM mixed with rules, eight
+repeated rendering blocks) and the plan to refactor in small commits
+with tests after each. Each risk can be checked against the code, so I
+verified them with grep. One suggestion I changed: the first plan
+proposed jsdom for UI tests. I replaced it with an injected document and
+a small fake DOM, so the project has no dependencies and
+<code>node --test</code> runs anywhere. I also had to decide an
+ambiguity myself: a blocked room stays visible in the list but is never
+reported as available.</p>
+<p>What I checked myself: I ran all tests (41 of 41 pass), ran the v1
+baseline harness, opened v2 in a real browser at 375 px width, and read
+each diff before committing. During the browser check one result looked
+wrong (switching to the blocked room showed a duration error).
+Investigation showed the old time range was still in the fields and
+validation runs before availability. The behaviour is correct, and I
+added it as a documented decision.</p>
+<p>Tests and design: the boundary tests (120 and 121 minutes, touching
+intervals, exact capacity) all passed on the first run, so they
+confirmed the comparison operators rather than finding a bug. The
+room-switch integration tests proved that the result is refreshed or
+cleared for the new room instead of keeping an old answer.</p>
+<p>Next improvements: persist bookings, handle past times against the
+current time, add a real end-to-end test in CI, and test
+accessibility.</p>
+<h1 id="ai-evidence-appendix">AI evidence appendix</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AI tool / model</td>
+<td>Claude (Anthropic), Claude Code, model
+<code>claude-sonnet-5-5</code></td>
+</tr>
+<tr class="even">
+<td>Date</td>
+<td>2026-11-08</td>
+</tr>
+<tr class="odd">
+<td>Student review</td>
+<td>All outputs were reviewed by the student; see "Verification"</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prompts-summary">Prompts (summary)</h2>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Prompt summary</th>
+<th>Output used</th>
+<th>Problems found / changes made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>"Help with the assignment, give a full step-by-step plan" (+
+assignment PDF)</td>
+<td>Stage plan, acceptance-criteria list, test list</td>
+<td>Plan suggested <code>jsdom</code> for UI tests; replaced with
+injected document + fake DOM (no dependencies)</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>"Start step by step": create structure, recreate v1, baseline</td>
+<td><code>v1-initial/</code> (recreated, <strong>not</strong> the
+original Assignment #03 prototype), baseline harness</td>
+<td>v1 is a reconstruction; stated in the report</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Analyze v1 for maintainability risks</td>
+<td>6 risks with line references, P1-P3 plan
+(<code>docs/01-codebase-analysis.md</code>)</td>
+<td>Line references verified with <code>grep -n</code>; section 6 of
+that file must reflect the student's real rejected suggestion</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Refactor and extend: config, validation, availability, rooms,
+filters, UI, tests</td>
+<td><code>v2-final/</code> (4 commits, one per step)</td>
+<td>Browser check showed an apparent bug that was correct behaviour
+(validation before availability); documented</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Draft metrics table and reflection</td>
+<td><code>docs/02-design-and-metrics.md</code>,
+<code>docs/03-ai-reflection.md</code></td>
+<td>Reflection is a draft; student edits and owns it</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verification-sources">Verification sources</h2>
+<ul>
+<li><code>node --test</code> in <code>v2-final</code>: 41 tests, 41 pass
+(<code>docs/test-results.txt</code>).</li>
+<li>v1 baseline harness: 9/9
+(<code>docs/baseline-v1-results.txt</code>).</li>
+<li>Real-browser run with Playwright at 375 px: no console errors, no
+horizontal overflow (<code>docs/browser-check-results.txt</code>,
+screenshots).</li>
+<li><code>git log</code> / <code>git diff</code> for every step;
+<code>grep</code> for duplicated constants and DOM access in rules.</li>
+</ul>
+<h2 id="changes-made-after-ai-output">Changes made after AI output</h2>
+<ul>
+<li>Replaced jsdom suggestion with a dependency-free fake DOM.</li>
+<li>Fixed a misleading comment in <code>tests/integration.test.js</code>
+found while re-reading the diff.</li>
+<li>Corrected the reflection draft so it does not claim that tests found
+a bug (they confirmed the design).</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,11 @@
+flowchart TD
+  HTML["index.html"] --> MAIN["src/main.js"]
+  MAIN --> APP["ui/app.js<br/>events + wiring"]
+  APP --> RENDER["ui/render.js<br/>DOM output"]
+  APP --> CHECK["rules/check.js<br/>orchestrator"]
+  APP --> FILTERS["rules/filters.js<br/>F1 F2"]
+  APP --> DATA["data/rooms.js<br/>frozen catalog"]
+  CHECK --> VAL["rules/validation.js<br/>AC1 AC2"]
+  CHECK --> AVAIL["rules/availability.js<br/>AC3 AC4"]
+  AVAIL --> VAL
+  VAL --> CFG["config.js<br/>MAX 120, time pattern"]
