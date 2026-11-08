@@ -1,0 +1,256 @@
+TAP version 13
+# Subtest: AC3: blocked room is reported as blocked, never available
+ok 1 - AC3: blocked room is reported as blocked, never available
+  ---
+  duration_ms: 1.705525
+  type: 'test'
+  ...
+# Subtest: AC3: blocked room wins even when it has no bookings
+ok 2 - AC3: blocked room wins even when it has no bookings
+  ---
+  duration_ms: 0.192734
+  type: 'test'
+  ...
+# Subtest: AC4: overlapping interval is busy and names the conflicting booking
+ok 3 - AC4: overlapping interval is busy and names the conflicting booking
+  ---
+  duration_ms: 0.651892
+  type: 'test'
+  ...
+# Subtest: AC4 boundary: request that ends exactly when a booking starts is free (touching)
+ok 4 - AC4 boundary: request that ends exactly when a booking starts is free (touching)
+  ---
+  duration_ms: 0.104129
+  type: 'test'
+  ...
+# Subtest: AC4 boundary: request that starts exactly when a booking ends is free (touching)
+ok 5 - AC4 boundary: request that starts exactly when a booking ends is free (touching)
+  ---
+  duration_ms: 0.123469
+  type: 'test'
+  ...
+# Subtest: AC4 boundary: one minute of overlap is busy
+ok 6 - AC4 boundary: one minute of overlap is busy
+  ---
+  duration_ms: 0.068865
+  type: 'test'
+  ...
+# Subtest: AC4: request fully inside an existing booking is busy
+ok 7 - AC4: request fully inside an existing booking is busy
+  ---
+  duration_ms: 0.102796
+  type: 'test'
+  ...
+# Subtest: runCheck: free slot returns ok with room name in message
+ok 8 - runCheck: free slot returns ok with room name in message
+  ---
+  duration_ms: 0.254084
+  type: 'test'
+  ...
+# Subtest: runCheck: validation errors come before availability (blocked room + 121 min -> TOO_LONG)
+ok 9 - runCheck: validation errors come before availability (blocked room + 121 min -> TOO_LONG)
+  ---
+  duration_ms: 0.228859
+  type: 'test'
+  ...
+# Subtest: runCheck: blocked room returns BLOCKED error
+ok 10 - runCheck: blocked room returns BLOCKED error
+  ---
+  duration_ms: 0.26403
+  type: 'test'
+  ...
+# Subtest: F1 boundary: exact capacity passes, one more attendee fails
+ok 11 - F1 boundary: exact capacity passes, one more attendee fails
+  ---
+  duration_ms: 0.858683
+  type: 'test'
+  ...
+# Subtest: F1: insufficient capacity excludes small rooms
+ok 12 - F1: insufficient capacity excludes small rooms
+  ---
+  duration_ms: 0.618439
+  type: 'test'
+  ...
+# Subtest: F2: room must have ALL selected equipment
+ok 13 - F2: room must have ALL selected equipment
+  ---
+  duration_ms: 0.102883
+  type: 'test'
+  ...
+# Subtest: F2: missing a single required item excludes the room
+ok 14 - F2: missing a single required item excludes the room
+  ---
+  duration_ms: 0.121683
+  type: 'test'
+  ...
+# Subtest: F1 + F2 combined
+ok 15 - F1 + F2 combined
+  ---
+  duration_ms: 0.123919
+  type: 'test'
+  ...
+# Subtest: no criteria returns the whole catalog
+ok 16 - no criteria returns the whole catalog
+  ---
+  duration_ms: 0.062917
+  type: 'test'
+  ...
+# Subtest: F3: a blocked room can match filters but is never reported as available
+ok 17 - F3: a blocked room can match filters but is never reported as available
+  ---
+  duration_ms: 0.354264
+  type: 'test'
+  ...
+# Subtest: F4: impossible criteria give an empty list
+ok 18 - F4: impossible criteria give an empty list
+  ---
+  duration_ms: 0.077027
+  type: 'test'
+  ...
+# Subtest: parseAttendees accepts empty and whole numbers, rejects the rest
+ok 19 - parseAttendees accepts empty and whole numbers, rejects the rest
+  ---
+  duration_ms: 0.317079
+  type: 'test'
+  ...
+# Subtest: getRoomById returns null for unknown ids
+ok 20 - getRoomById returns null for unknown ids
+  ---
+  duration_ms: 0.260647
+  type: 'test'
+  ...
+# Subtest: integration: initial state lists all rooms and selects the first
+ok 21 - integration: initial state lists all rooms and selects the first
+  ---
+  duration_ms: 1.514257
+  type: 'test'
+  ...
+# Subtest: integration: filter -> select room -> check time -> result (free slot)
+ok 22 - integration: filter -> select room -> check time -> result (free slot)
+  ---
+  duration_ms: 0.597398
+  type: 'test'
+  ...
+# Subtest: integration: busy slot and boundary touching through the UI
+ok 23 - integration: busy slot and boundary touching through the UI
+  ---
+  duration_ms: 0.193843
+  type: 'test'
+  ...
+# Subtest: integration: invalid time shows a clear error (AC1/AC2/AC6)
+ok 24 - integration: invalid time shows a clear error (AC1/AC2/AC6)
+  ---
+  duration_ms: 0.125626
+  type: 'test'
+  ...
+# Subtest: F4 integration: impossible requirements show the empty state and disable checking
+ok 25 - F4 integration: impossible requirements show the empty state and disable checking
+  ---
+  duration_ms: 0.329611
+  type: 'test'
+  ...
+# Subtest: F5 integration: changing the room re-checks the same time for the NEW room
+ok 26 - F5 integration: changing the room re-checks the same time for the NEW room
+  ---
+  duration_ms: 0.144269
+  type: 'test'
+  ...
+# Subtest: F5 integration: blocked room switch shows blocked error, not a stale 'available'
+ok 27 - F5 integration: blocked room switch shows blocked error, not a stale 'available'
+  ---
+  duration_ms: 0.143827
+  type: 'test'
+  ...
+# Subtest: F5 integration: result is cleared when the filter removes the selected room
+ok 28 - F5 integration: result is cleared when the filter removes the selected room
+  ---
+  duration_ms: 0.121743
+  type: 'test'
+  ...
+# Subtest: integration: invalid attendees value shows a filter error and keeps the old list
+ok 29 - integration: invalid attendees value shows a filter error and keeps the old list
+  ---
+  duration_ms: 0.220574
+  type: 'test'
+  ...
+# Subtest: catalog has at least four rooms with all required fields
+ok 30 - catalog has at least four rooms with all required fields
+  ---
+  duration_ms: 1.836492
+  type: 'test'
+  ...
+# Subtest: catalog contains at least one blocked room
+ok 31 - catalog contains at least one blocked room
+  ---
+  duration_ms: 0.181367
+  type: 'test'
+  ...
+# Subtest: AC5: booking data is immutable (assignment and push throw)
+ok 32 - AC5: booking data is immutable (assignment and push throw)
+  ---
+  duration_ms: 0.318663
+  type: 'test'
+  ...
+# Subtest: AC5: running checks does not change room data
+ok 33 - AC5: running checks does not change room data
+  ---
+  duration_ms: 0.34296
+  type: 'test'
+  ...
+# Subtest: listEquipment returns sorted unique items from the catalog
+ok 34 - listEquipment returns sorted unique items from the catalog
+  ---
+  duration_ms: 0.615857
+  type: 'test'
+  ...
+# Subtest: each room uses its own bookings: same slot, different result per room
+ok 35 - each room uses its own bookings: same slot, different result per room
+  ---
+  duration_ms: 0.106105
+  type: 'test'
+  ...
+# Subtest: toMinutes converts HH:MM to minutes
+ok 36 - toMinutes converts HH:MM to minutes
+  ---
+  duration_ms: 0.599546
+  type: 'test'
+  ...
+# Subtest: AC1: empty input is rejected
+ok 37 - AC1: empty input is rejected
+  ---
+  duration_ms: 0.119029
+  type: 'test'
+  ...
+# Subtest: AC1: wrong format is rejected
+ok 38 - AC1: wrong format is rejected
+  ---
+  duration_ms: 0.158444
+  type: 'test'
+  ...
+# Subtest: AC1: start equal to end or after end is rejected
+ok 39 - AC1: start equal to end or after end is rejected
+  ---
+  duration_ms: 0.844561
+  type: 'test'
+  ...
+# Subtest: AC2 boundary: exactly 120 minutes is accepted
+ok 40 - AC2 boundary: exactly 120 minutes is accepted
+  ---
+  duration_ms: 0.18885
+  type: 'test'
+  ...
+# Subtest: AC2 boundary: 121 minutes is rejected
+ok 41 - AC2 boundary: 121 minutes is rejected
+  ---
+  duration_ms: 0.122891
+  type: 'test'
+  ...
+1..41
+# tests 41
+# suites 0
+# pass 41
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 255.162348
