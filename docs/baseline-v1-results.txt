@@ -1,0 +1,11 @@
+PASS  AC1 empty input  [-] -> error: Please enter both start and end time.
+PASS  AC1 bad format  [9am-10:00] -> error: Please enter time in HH:MM format (00:00 - 23:59).
+PASS  AC1 start >= end  [11:00-10:00] -> error: End time must be later than start time.
+PASS  AC2 exactly 120 min (ok)  [10:00-12:00] -> ok: Room Alpha Lab is available from 10:00 to 12:00.
+PASS  AC2 121 min (rejected)  [10:00-12:01] -> error: Booking cannot be longer than 120 minutes.
+PASS  AC4 overlap with 09:00-10:00  [09:30-10:30] -> busy: Room is busy: overlaps with booking 09:00-10:00.
+PASS  AC4 touching end (10:00)  [10:00-11:00] -> ok: Room Alpha Lab is available from 10:00 to 11:00.
+PASS  AC4 touching start (13:00)  [12:00-13:00] -> ok: Room Alpha Lab is available from 12:00 to 13:00.
+PASS  free slot  [11:00-12:00] -> ok: Room Alpha Lab is available from 11:00 to 12:00.
+
+Baseline v1: 9/9 checks passed

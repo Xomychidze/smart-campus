@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Campus - Room Availability Checker (v1)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 16px; background: #f4f6f8; }
+    .card { max-width: 480px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+    h1 { font-size: 20px; margin-top: 0; }
+    label { display: block; margin: 12px 0 4px; font-weight: bold; }
+    input, button { width: 100%; padding: 10px; font-size: 16px; box-sizing: border-box; }
+    button { margin-top: 16px; background: #1a5fb4; color: #fff; border: 0; border-radius: 4px; cursor: pointer; }
+    #result { margin-top: 16px; padding: 12px; border-radius: 4px; display: none; }
+    #result.ok { display: block; background: #e3f6e8; color: #145a2a; }
+    #result.error { display: block; background: #fdeaea; color: #8a1c1c; }
+    #result.busy { display: block; background: #fff3cd; color: #7a5a00; }
+    .info { font-size: 14px; color: #555; }
+    @media (max-width: 480px) { body { padding: 8px; } .card { padding: 12px; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Room Availability Checker</h1>
+    <p class="info">Room: Alpha Lab (R101). Current time: 2026-11-09 09:00 (fixed).</p>
+
+    <label for="start">Start time (HH:MM)</label>
+    <input id="start" type="text" placeholder="10:00">
+
+    <label for="end">End time (HH:MM)</label>
+    <input id="end" type="text" placeholder="11:00">
+
+    <button id="check">Check availability</button>
+    <div id="result" role="status" aria-live="polite"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
