@@ -65,10 +65,15 @@ Order rule: refactor one step at a time, run tests and review the diff after eac
 
 ## 6. AI suggestion that was modified/rejected
 
-> **To be confirmed by the student (must reflect what really happened).**
-> Candidate from this session: the assistant's first plan said a UI-level integration test could use `jsdom`.
-> Decision: modified - no dependency is added; the integration test runs at the orchestrator level (`runCheck(state)`) with Node's built-in `node --test`, plus a manual UI checklist.
-> Reason: assignment requires "setup, run and test commands"; zero dependencies means `node --test` works on any machine without `npm install`.
+**Suggestion (AI):** For testing the UI, the assistant proposed a small fake DOM as the main approach and mentioned `jsdom` as an optional alternative for more realistic browser tests.
+
+**Decision: partly accepted, partly rejected.**
+- Accepted: testing the rules as pure functions and testing the UI flow with a small fake DOM (`tests/helpers/fake-dom.js`) through `initApp(fakeDocument)`, plus a manual browser smoke check.
+- Rejected: `jsdom`. The project has no dependencies in `package.json`.
+
+**Reason:** The assignment requires clear setup, run and test commands. With zero dependencies, `npm test` (`node --test`) works on any machine with Node 20+ and does not need `npm install`. The "no heavy frameworks" constraint also points to keeping test tools minimal.
+
+**Trade-off I accepted:** A fake DOM can differ from a real browser. To reduce this risk, the fake DOM is very small, and I use a manual UI checklist (change room, change filter, empty state, narrow screen at about 375 px) before submitting.
 
 
 # Tasks #02, #03, #05 - Design, refactoring and quality evidence
@@ -193,26 +198,23 @@ ok 41 - AC2 boundary: 121 minutes is rejected
 | ![](demo/3-room-switch-rechecked.png) | ![](demo/4-filter-empty-state.png) |
 
 
-# Task #06 - AI reflection 
+# Task #06 - AI reflection
 
-I used Claude (Claude Sonnet 5.5, Claude Code) on 2026-11-08. I gave it the assignment PDF, a repository map of v1, acceptance criteria AC1-AC6 and the constraints: no login, payments, APIs or database, fictional data only, and small steps instead of a rewrite.
+I used Claude Sonnet 5.5 (claude.ai chat and Claude Code) on 2026-11-08 to improve my project. I gave it the assignment PDF, a repository map of the old code, acceptance criteria AC1-AC6 and the constraints (no login, payments, APIs or database, fictional data only). I asked for small changes instead of a full rewrite.
 
-Useful output: the risk list with line references (the 120-minute rule duplicated at script.js L43 and L84, DOM mixed with rules, eight repeated rendering blocks) and the plan to refactor in small commits with tests after each. Each risk can be checked against the code, so I verified them with grep. One suggestion I changed: the first plan proposed jsdom for UI tests. I replaced it with an injected document and a small fake DOM, so the project has no dependencies and `node --test` runs anywhere. I also had to decide an ambiguity myself: a blocked room stays visible in the list but is never reported as available.
+Claude found real problems: the 120-minute rule duplicated in two places, rules mixed with DOM code, and eight repeated rendering blocks. I checked them with grep, then followed the plan step by step, one commit per step. I rejected one suggestion: jsdom was offered as an optional UI-testing tool, and I kept a small fake DOM so the project has no dependencies. One AI statement was incorrect: the draft evidence text described `runCheck(state)`; I checked the code, found `runCheck(room, start, end)` and corrected it. I also decided myself that blocked rooms stay visible but are never shown as available.
 
-What I checked myself: I ran all tests (41 of 41 pass), ran the v1 baseline harness, opened v2 in a real browser at 375 px width, and read each diff before committing. During the browser check one result looked wrong (switching to the blocked room showed a duration error). Investigation showed the old time range was still in the fields and validation runs before availability. The behaviour is correct, and I added it as a documented decision.
+After each change I ran the tests; all 41 pass. I checked the page in a browser at 375 px width and reviewed every diff before committing. One strange result (a duration error after switching to the blocked room) turned out to be correct: the old time stayed in the fields and validation runs before availability.
 
-Tests and design: the boundary tests (120 and 121 minutes, touching intervals, exact capacity) all passed on the first run, so they confirmed the comparison operators rather than finding a bug. The room-switch integration tests proved that the result is refreshed or cleared for the new room instead of keeping an old answer.
+The tests confirmed my boundary decisions (120 vs 121 minutes, touching intervals, exact capacity) and showed that room switching refreshes the result.
 
-Next improvements: persist bookings, handle past times against the current time, add a real end-to-end test in CI, and test accessibility.
-
-
-
+Next I would add browser-level tests, block bookings in the past and improve accessibility. Saving bookings was out of scope for this assignment.
 
 # AI evidence appendix
 
 | Field | Value |
 |-------|-------|
-| AI tool / model | Claude (Anthropic), Claude Code, model `claude-sonnet-5-5` |
+| AI tool / model | Claude (Anthropic), claude.ai chat and Claude Code, model `claude-sonnet-5-5` |
 | Date | 2026-11-08 |
 | Student review | All outputs were reviewed by the student; see "Verification" |
 
@@ -220,11 +222,12 @@ Next improvements: persist bookings, handle past times against the current time,
 
 | # | Prompt summary | Output used | Problems found / changes made |
 |---|----------------|-------------|-------------------------------|
-| 1 | "Help with the assignment, give a full step-by-step plan" (+ assignment PDF) | Stage plan, acceptance-criteria list, test list | Plan suggested `jsdom` for UI tests; replaced with injected document + fake DOM (no dependencies) |
+| 1 | "Help with the assignment, give a full step-by-step plan" (+ assignment PDF) | Stage plan, acceptance-criteria list, test list | Plan listed `jsdom` as an optional UI-testing tool; rejected, used an injected document + a small fake DOM (no dependencies) |
 | 2 | "Start step by step": create structure, recreate v1, baseline | `v1-initial/` (recreated, **not** the original Assignment #03 prototype), baseline harness | v1 is a reconstruction; stated in the report |
-| 3 | Analyze v1 for maintainability risks | 6 risks with line references, P1-P3 plan (`docs/01-codebase-analysis.md`) | Line references verified with `grep -n`; section 6 of that file must reflect the student's real rejected suggestion |
+| 3 | Analyze v1 for maintainability risks | 6 risks with line references, P1-P3 plan (`docs/01-codebase-analysis.md`) | Line references verified with `grep -n`; section 6 of that file was corrected by the student to match what really happened |
 | 4 | Refactor and extend: config, validation, availability, rooms, filters, UI, tests | `v2-final/` (4 commits, one per step) | Browser check showed an apparent bug that was correct behaviour (validation before availability); documented |
-| 5 | Draft metrics table and reflection | `docs/02-design-and-metrics.md`, `docs/03-ai-reflection.md` | Reflection is a draft; student edits and owns it |
+| 5 | Draft metrics table and reflection | `docs/02-design-and-metrics.md`, `docs/03-ai-reflection.md` | Reflection was drafted by the AI; the student rewrote, corrected and finalized it |
+| 6 | Gave repo map, AC1-AC6 and constraints; asked for risks, P1-P3 plan, file structure and test approach (claude.ai chat) | Risks, plan, fake-DOM test approach | The draft of section 6 contained an inaccurate claim (`runCheck(state)`); I checked the code and corrected it |
 
 ## Verification sources
 
@@ -237,4 +240,4 @@ Next improvements: persist bookings, handle past times against the current time,
 
 - Replaced jsdom suggestion with a dependency-free fake DOM.
 - Fixed a misleading comment in `tests/integration.test.js` found while re-reading the diff.
-- Corrected the reflection draft so it does not claim that tests found a bug (they confirmed the design).
+- Rewrote the reflection so it matches what really happened (it does not claim that tests found a bug; they confirmed the design).

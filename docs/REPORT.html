@@ -348,17 +348,28 @@ selector, empty state</td>
 diff after each, commit after each.</p>
 <h2 id="6-ai-suggestion-that-was-modifiedrejected">6. AI suggestion that
 was modified/rejected</h2>
-<blockquote>
-<p><strong>To be confirmed by the student (must reflect what really
-happened).</strong> Candidate from this session: the assistant's first
-plan said a UI-level integration test could use <code>jsdom</code>.
-Decision: modified - no dependency is added; the integration test runs
-at the orchestrator level (<code>runCheck(state)</code>) with Node's
-built-in <code>node --test</code>, plus a manual UI checklist. Reason:
-assignment requires "setup, run and test commands"; zero dependencies
-means <code>node --test</code> works on any machine without
-<code>npm install</code>.</p>
-</blockquote>
+<p><strong>Suggestion (AI):</strong> For testing the UI, the assistant
+proposed a small fake DOM as the main approach and mentioned
+<code>jsdom</code> as an optional alternative for more realistic browser
+tests.</p>
+<p><strong>Decision: partly accepted, partly rejected.</strong></p>
+<ul>
+<li>Accepted: testing the rules as pure functions and testing the UI
+flow with a small fake DOM (<code>tests/helpers/fake-dom.js</code>)
+through <code>initApp(fakeDocument)</code>, plus a manual browser smoke
+check.</li>
+<li>Rejected: <code>jsdom</code>. The project has no dependencies in
+<code>package.json</code>.</li>
+</ul>
+<p><strong>Reason:</strong> The assignment requires clear setup, run and
+test commands. With zero dependencies, <code>npm test</code>
+(<code>node --test</code>) works on any machine with Node 20+ and does
+not need <code>npm install</code>. The "no heavy frameworks" constraint
+also points to keeping test tools minimal.</p>
+<p><strong>Trade-off I accepted:</strong> A fake DOM can differ from a
+real browser. To reduce this risk, the fake DOM is very small, and I use
+a manual UI checklist (change room, change filter, empty state, narrow
+screen at about 375 px) before submitting.</p>
 <h1 id="tasks-02-03-05---design-refactoring-and-quality-evidence">Tasks
 #02, #03, #05 - Design, refactoring and quality evidence</h1>
 <h2 id="1-architecture-before--after">1. Architecture before /
@@ -572,35 +583,32 @@ id="demonstration-screenshots-420-px-wide-real-browser">Demonstration
 </tbody>
 </table>
 <h1 id="task-06---ai-reflection">Task #06 - AI reflection</h1>
-<p>I used Claude (Claude Sonnet 5.5, Claude Code) on 2026-11-08. I gave
-it the assignment PDF, a repository map of v1, acceptance criteria
-AC1-AC6 and the constraints: no login, payments, APIs or database,
-fictional data only, and small steps instead of a rewrite.</p>
-<p>Useful output: the risk list with line references (the 120-minute
-rule duplicated at script.js L43 and L84, DOM mixed with rules, eight
-repeated rendering blocks) and the plan to refactor in small commits
-with tests after each. Each risk can be checked against the code, so I
-verified them with grep. One suggestion I changed: the first plan
-proposed jsdom for UI tests. I replaced it with an injected document and
-a small fake DOM, so the project has no dependencies and
-<code>node --test</code> runs anywhere. I also had to decide an
-ambiguity myself: a blocked room stays visible in the list but is never
-reported as available.</p>
-<p>What I checked myself: I ran all tests (41 of 41 pass), ran the v1
-baseline harness, opened v2 in a real browser at 375 px width, and read
-each diff before committing. During the browser check one result looked
-wrong (switching to the blocked room showed a duration error).
-Investigation showed the old time range was still in the fields and
-validation runs before availability. The behaviour is correct, and I
-added it as a documented decision.</p>
-<p>Tests and design: the boundary tests (120 and 121 minutes, touching
-intervals, exact capacity) all passed on the first run, so they
-confirmed the comparison operators rather than finding a bug. The
-room-switch integration tests proved that the result is refreshed or
-cleared for the new room instead of keeping an old answer.</p>
-<p>Next improvements: persist bookings, handle past times against the
-current time, add a real end-to-end test in CI, and test
-accessibility.</p>
+<p>I used Claude Sonnet 5.5 (claude.ai chat and Claude Code) on
+2026-11-08 to improve my project. I gave it the assignment PDF, a
+repository map of the old code, acceptance criteria AC1-AC6 and the
+constraints (no login, payments, APIs or database, fictional data only).
+I asked for small changes instead of a full rewrite.</p>
+<p>Claude found real problems: the 120-minute rule duplicated in two
+places, rules mixed with DOM code, and eight repeated rendering blocks.
+I checked them with grep, then followed the plan step by step, one
+commit per step. I rejected one suggestion: jsdom was offered as an
+optional UI-testing tool, and I kept a small fake DOM so the project has
+no dependencies. One AI statement was incorrect: the draft evidence text
+described <code>runCheck(state)</code>; I checked the code, found
+<code>runCheck(room, start, end)</code> and corrected it. I also decided
+myself that blocked rooms stay visible but are never shown as
+available.</p>
+<p>After each change I ran the tests; all 41 pass. I checked the page in
+a browser at 375 px width and reviewed every diff before committing. One
+strange result (a duration error after switching to the blocked room)
+turned out to be correct: the old time stayed in the fields and
+validation runs before availability.</p>
+<p>The tests confirmed my boundary decisions (120 vs 121 minutes,
+touching intervals, exact capacity) and showed that room switching
+refreshes the result.</p>
+<p>Next I would add browser-level tests, block bookings in the past and
+improve accessibility. Saving bookings was out of scope for this
+assignment.</p>
 <h1 id="ai-evidence-appendix">AI evidence appendix</h1>
 <table>
 <thead>
@@ -612,7 +620,7 @@ accessibility.</p>
 <tbody>
 <tr class="odd">
 <td>AI tool / model</td>
-<td>Claude (Anthropic), Claude Code, model
+<td>Claude (Anthropic), claude.ai chat and Claude Code, model
 <code>claude-sonnet-5-5</code></td>
 </tr>
 <tr class="even">
@@ -641,8 +649,9 @@ accessibility.</p>
 <td>"Help with the assignment, give a full step-by-step plan" (+
 assignment PDF)</td>
 <td>Stage plan, acceptance-criteria list, test list</td>
-<td>Plan suggested <code>jsdom</code> for UI tests; replaced with
-injected document + fake DOM (no dependencies)</td>
+<td>Plan listed <code>jsdom</code> as an optional UI-testing tool;
+rejected, used an injected document + a small fake DOM (no
+dependencies)</td>
 </tr>
 <tr class="even">
 <td>2</td>
@@ -657,7 +666,8 @@ original Assignment #03 prototype), baseline harness</td>
 <td>6 risks with line references, P1-P3 plan
 (<code>docs/01-codebase-analysis.md</code>)</td>
 <td>Line references verified with <code>grep -n</code>; section 6 of
-that file must reflect the student's real rejected suggestion</td>
+that file was corrected by the student to match what really
+happened</td>
 </tr>
 <tr class="even">
 <td>4</td>
@@ -672,7 +682,16 @@ filters, UI, tests</td>
 <td>Draft metrics table and reflection</td>
 <td><code>docs/02-design-and-metrics.md</code>,
 <code>docs/03-ai-reflection.md</code></td>
-<td>Reflection is a draft; student edits and owns it</td>
+<td>Reflection was drafted by the AI; the student rewrote, corrected and
+finalized it</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Gave repo map, AC1-AC6 and constraints; asked for risks, P1-P3 plan,
+file structure and test approach (claude.ai chat)</td>
+<td>Risks, plan, fake-DOM test approach</td>
+<td>The draft of section 6 contained an inaccurate claim
+(<code>runCheck(state)</code>); I checked the code and corrected it</td>
 </tr>
 </tbody>
 </table>
@@ -693,8 +712,8 @@ screenshots).</li>
 <li>Replaced jsdom suggestion with a dependency-free fake DOM.</li>
 <li>Fixed a misleading comment in <code>tests/integration.test.js</code>
 found while re-reading the diff.</li>
-<li>Corrected the reflection draft so it does not claim that tests found
-a bug (they confirmed the design).</li>
+<li>Rewrote the reflection so it matches what really happened (it does
+not claim that tests found a bug; they confirmed the design).</li>
 </ul>
 </body>
 </html>

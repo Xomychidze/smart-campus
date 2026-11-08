@@ -58,7 +58,7 @@ Order rule: refactor one step at a time, run tests and review the diff after eac
 
 ## 6. AI suggestion that was modified/rejected
 
-**Suggestion (AI):** For testing the UI, the assistant proposed a small fake DOM as the main approach and mentioned `jsdom` as optional alternatives for more realistic browser tests.
+**Suggestion (AI):** For testing the UI, the assistant proposed a small fake DOM as the main approach and mentioned `jsdom` as an optional alternative for more realistic browser tests.
 
 **Decision: partly accepted, partly rejected.**
 - Accepted: testing the rules as pure functions and testing the UI flow with a small fake DOM (`tests/helpers/fake-dom.js`) through `initApp(fakeDocument)`, plus a manual browser smoke check.
